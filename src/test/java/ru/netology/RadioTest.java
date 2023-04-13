@@ -19,10 +19,34 @@ public class RadioTest {
     }
 
     @Test
+    public void shouldSetLessMinWave() {
+        Radio wave = new Radio();
+
+        wave.setWave(-1);
+
+        int expected = 0;
+        int actual = wave.getWave();
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSetLessMaxWave() {
+        Radio wave = new Radio();
+
+        wave.setWave(11);
+
+        int expected = 0;
+        int actual = wave.getWave();
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
     public void shouldSetWaveHigher() {
         Radio wave = new Radio();
         wave.setWave(6);
-        wave.waveNext(1);
+        wave.waveNext();
 
         int expected = 7;
         int actual = wave.getWave();
@@ -34,7 +58,7 @@ public class RadioTest {
     public void shouldSetWaveLower() {
         Radio wave = new Radio();
         wave.setWave(4);
-        wave.wavePrev(1);
+        wave.wavePrev();
 
         int expected = 3;
         int actual = wave.getWave();
@@ -46,7 +70,7 @@ public class RadioTest {
     public void shouldSetWaveToFirst() {
         Radio wave = new Radio();
         wave.setWave(9);
-        wave.waveNext(1);
+        wave.waveNext();
 
         int expected = 0;
         int actual = wave.getWave();
@@ -58,7 +82,7 @@ public class RadioTest {
     public void shouldSetWaveToLast() {
         Radio wave = new Radio();
         wave.setWave(0);
-        wave.wavePrev(1);
+        wave.wavePrev();
 
         int expected = 9;
         int actual = wave.getWave();
@@ -67,61 +91,49 @@ public class RadioTest {
     }
 
     @Test
-    public void shouldVolumeSet() {
-        Radio volume = new Radio();
-
-        volume.setVolume(8);
-
-        int expected = 8;
-        int actual = volume.getVolume();
-
-        Assertions.assertEquals(expected, actual);
-    }
-
-    @Test
-    public void shouldVolumeHigher() {
-        Radio volume = new Radio();
-        volume.setVolume(8);
-        volume.volumeUp(1);
-
-        int expected = 9;
-        int actual = volume.getVolume();
-
-        Assertions.assertEquals(expected, actual);
-    }
-
-    @Test
-    public void shouldVolumeLower() {
-        Radio volume = new Radio();
-        volume.setVolume(8);
-        volume.volumeDown(1);
-
-        int expected = 7;
-        int actual = volume.getVolume();
-
-        Assertions.assertEquals(expected, actual);
-    }
-
-    @Test
-    public void shouldVolumeOverLimit() {
-        Radio volume = new Radio();
-        volume.setVolume(10);
-        volume.volumeUp(1);
+    public void shouldIncreaseVolume() {
+        Radio currentVolume = new Radio();
+        currentVolume.setCurrentVolume(9);
+        currentVolume.increaseVolume();
 
         int expected = 10;
-        int actual = volume.getVolume();
+        int actual = currentVolume.getCurrentVolume();
 
         Assertions.assertEquals(expected, actual);
     }
 
     @Test
-    public void shouldVolumeUnderLimit() {
-        Radio volume = new Radio();
-        volume.setVolume(0);
-        volume.volumeDown(1);
+    public void shouldDecreaseVolume() {
+        Radio currentVolume = new Radio();
+        currentVolume.setCurrentVolume(1);
+        currentVolume.decreaseVolume();
 
         int expected = 0;
-        int actual = volume.getVolume();
+        int actual = currentVolume.getCurrentVolume();
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldLessThanMinVolume() {
+        Radio currentVolume = new Radio();
+        currentVolume.setCurrentVolume(0);
+        currentVolume.decreaseVolume();
+
+        int expected = 0;
+        int actual = currentVolume.getCurrentVolume();
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldLessThanMaxVolume() {
+        Radio currentVolume = new Radio();
+        currentVolume.setCurrentVolume(10);
+        currentVolume.increaseVolume();
+
+        int expected = 10;
+        int actual = currentVolume.getCurrentVolume();
 
         Assertions.assertEquals(expected, actual);
     }

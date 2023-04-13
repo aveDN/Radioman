@@ -2,55 +2,59 @@ package ru.netology;
 
 public class Radio {
     private int wave;
-    private int volume;
+    private int currentVolume;
 
     public int getWave() {
         return wave;
     }
 
-    public int getVolume() {
-        return volume;
-    }
 
-    public void setWave(int newWave) {
-        if (newWave < 0) {
-            wave = 9;
+    public void setWave(int wave) {
+        if (wave < 0) {
             return;
         }
-        if (newWave > 9) {
+        if (wave > 9) {
+            return;
+        }
+        this.wave = wave;
+    }
+
+    public void waveNext() {
+        if (wave < 9) {
+            wave++;
+        } else {
             wave = 0;
+        }
+    }
+
+    public void wavePrev() {
+        if (wave > 0) {
+            wave--;
+        } else {
+            wave = 9;
+        }
+    }
+
+    public int getCurrentVolume() {
+        return currentVolume;
+    }
+
+    public void setCurrentVolume(int currentVolume) {
+        this.currentVolume = currentVolume;
+    }
+
+    public void increaseVolume() {
+        if (currentVolume < 10) {
+            currentVolume = currentVolume + 1;
             return;
         }
-        wave = newWave;
     }
 
-    public void waveNext(int next) {
-        next = wave + 1;
-        setWave(next);
-    }
-
-    public void wavePrev(int previous) {
-        previous = wave - 1;
-        setWave(previous);
-    }
-
-    public void setVolume(int newVolume) {
-        if (newVolume < 0) {
+    public void decreaseVolume() {
+        if (currentVolume > 0) {
+            currentVolume = currentVolume - 1;
             return;
         }
-        if (newVolume > 10) {
-            return;
-        }
-        volume = newVolume;
     }
 
-    public void volumeUp(int volUp) {
-        volUp = volume + 1;
-        setVolume(volUp);
-    }
-
-    public void volumeDown(int volDn) {
-        volDn = volume - 1;
-        setVolume(volDn);
-    }
 }
